@@ -1,0 +1,15 @@
+{
+  "name": "bot-whatsapp-grupo",
+  "version": "1.0.0",
+  "description": "Bot básico de WhatsApp para grupos",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "Josemar Neves",
+  "license": "MIT",
+  "dependencies": {
+    "qrcode-terminal": "^0.12.0",
+    "whatsapp-web.js": "^1.26.0"
+  }
+}
