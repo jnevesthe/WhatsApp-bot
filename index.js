@@ -1,15 +1,28 @@
 const { Client } = require('whatsapp-web.js');
-const qrcode = require('qrcode-terminal');
+const QRCode = require('qrcode'); // para gerar imagem
+const fs = require('fs');
 
 const client = new Client();
 
 let mutados = new Set();
+let qrGerado = false; // para controlar o tempo entre QR Codes
 
 client.on('qr', qr => {
-    qrcode.generate(qr, { small: false }); // QR Code maior
-    console.log('📱 Escaneie o QR Code acima com o WhatsApp');
-});
+    if (!qrGerado) {
+        QRCode.toFile('qrcode.png', qr, err => {
+            if (err) console.error(err);
+            console.log('✅ QR Code gerado: qrcode.png');
+            console.log('Abra esta imagem e escaneie com o WhatsApp');
+            qrGerado = true;
 
+            // esperar 5 minutos para permitir gerar outro QR se não escanear
+            setTimeout(() => {
+                qrGerado = false;
+                console.log('⏳ QR Code liberado para gerar novamente, se necessário.');
+            }, 5 * 60 * 1000); // 5 minutos
+        });
+    }
+});
 
 client.on('ready', () => {
     console.log('🤖 Bot online');
