@@ -6,8 +6,10 @@ const client = new Client();
 let mutados = new Set();
 
 client.on('qr', qr => {
-    qrcode.generate(qr, { small: true });
+    qrcode.generate(qr, { small: false }); // QR Code maior
+    console.log('📱 Escaneie o QR Code acima com o WhatsApp');
 });
+
 
 client.on('ready', () => {
     console.log('🤖 Bot online');
